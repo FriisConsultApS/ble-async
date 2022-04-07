@@ -11,6 +11,12 @@
 		DA4B0E5327F448B1006F534E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4B0E5227F448B1006F534E /* ContentView.swift */; };
 		DA4B0E5527F448B2006F534E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4B0E5427F448B2006F534E /* Assets.xcassets */; };
 		DA4B0E5827F448B2006F534E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA4B0E5727F448B2006F534E /* Preview Assets.xcassets */; };
+		DA4B0E5F27F44BBF006F534E /* AsyncCBCentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4B0E5E27F44BBF006F534E /* AsyncCBCentralManager.swift */; };
+		DA4B0E6127F4DBFE006F534E /* AsyncCBPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4B0E6027F4DBFE006F534E /* AsyncCBPeripheral.swift */; };
+		DA4B0E6527F5E8B0006F534E /* Data extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4B0E6427F5E8B0006F534E /* Data extensions.swift */; };
+		DA4B0E6727F6226C006F534E /* BatteryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4B0E6627F6226C006F534E /* BatteryMonitor.swift */; };
+		DAB853B727FD6DDA00ABCB22 /* FCNanoBLESense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB853B627FD6DDA00ABCB22 /* FCNanoBLESense.swift */; };
+		DAB853BA27FD797300ABCB22 /* SenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB853B927FD797300ABCB22 /* SenseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,13 @@
 		DA4B0E5227F448B1006F534E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DA4B0E5427F448B2006F534E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA4B0E5727F448B2006F534E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DA4B0E5E27F44BBF006F534E /* AsyncCBCentralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCBCentralManager.swift; sourceTree = "<group>"; };
+		DA4B0E6027F4DBFE006F534E /* AsyncCBPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCBPeripheral.swift; sourceTree = "<group>"; };
+		DA4B0E6427F5E8B0006F534E /* Data extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data extensions.swift"; sourceTree = "<group>"; };
+		DA4B0E6627F6226C006F534E /* BatteryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitor.swift; sourceTree = "<group>"; };
+		DAB853B627FD6DDA00ABCB22 /* FCNanoBLESense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCNanoBLESense.swift; sourceTree = "<group>"; };
+		DAB853B827FD6F5C00ABCB22 /* BLE_sense_demo.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = BLE_sense_demo.ino; sourceTree = "<group>"; };
+		DAB853B927FD797300ABCB22 /* SenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +48,7 @@
 		DA4B0E4427F448B1006F534E = {
 			isa = PBXGroup;
 			children = (
+				DAB853B827FD6F5C00ABCB22 /* BLE_sense_demo.ino */,
 				DA4B0E4F27F448B1006F534E /* BLEConcurrency */,
 				DA4B0E4E27F448B1006F534E /* Products */,
 			);
@@ -53,8 +67,13 @@
 			children = (
 				DA4B0E5027F448B1006F534E /* BLEConcurrencyApp.swift */,
 				DA4B0E5227F448B1006F534E /* ContentView.swift */,
+				DAB853B927FD797300ABCB22 /* SenseView.swift */,
 				DA4B0E5427F448B2006F534E /* Assets.xcassets */,
 				DA4B0E5627F448B2006F534E /* Preview Content */,
+				DA4B0E5E27F44BBF006F534E /* AsyncCBCentralManager.swift */,
+				DA4B0E6027F4DBFE006F534E /* AsyncCBPeripheral.swift */,
+				DAB853B627FD6DDA00ABCB22 /* FCNanoBLESense.swift */,
+				DA4B0E6627F6226C006F534E /* BatteryMonitor.swift */,
 			);
 			path = BLEConcurrency;
 			sourceTree = "<group>";
@@ -62,6 +81,7 @@
 		DA4B0E5627F448B2006F534E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				DA4B0E6427F5E8B0006F534E /* Data extensions.swift */,
 				DA4B0E5727F448B2006F534E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -138,7 +158,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA4B0E5327F448B1006F534E /* ContentView.swift in Sources */,
+				DA4B0E6127F4DBFE006F534E /* AsyncCBPeripheral.swift in Sources */,
+				DAB853BA27FD797300ABCB22 /* SenseView.swift in Sources */,
+				DAB853B727FD6DDA00ABCB22 /* FCNanoBLESense.swift in Sources */,
 				DA4B0E5127F448B1006F534E /* BLEConcurrencyApp.swift in Sources */,
+				DA4B0E5F27F44BBF006F534E /* AsyncCBCentralManager.swift in Sources */,
+				DA4B0E6527F5E8B0006F534E /* Data extensions.swift in Sources */,
+				DA4B0E6727F6226C006F534E /* BatteryMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +221,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -249,7 +275,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -270,6 +296,7 @@
 				DEVELOPMENT_TEAM = AX3K8VES64;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Need som ok from you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +326,7 @@
 				DEVELOPMENT_TEAM = AX3K8VES64;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Need som ok from you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
