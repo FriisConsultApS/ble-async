@@ -29,6 +29,7 @@
 		DA4B0E6027F4DBFE006F534E /* AsyncCBPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCBPeripheral.swift; sourceTree = "<group>"; };
 		DA4B0E6427F5E8B0006F534E /* Data extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data extensions.swift"; sourceTree = "<group>"; };
 		DA4B0E6627F6226C006F534E /* BatteryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitor.swift; sourceTree = "<group>"; };
+		DA777830281BD0B200C0AF4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DAB853B627FD6DDA00ABCB22 /* FCNanoBLESense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCNanoBLESense.swift; sourceTree = "<group>"; };
 		DAB853B827FD6F5C00ABCB22 /* BLE_sense_demo.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = BLE_sense_demo.ino; sourceTree = "<group>"; };
 		DAB853B927FD797300ABCB22 /* SenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenseView.swift; sourceTree = "<group>"; };
@@ -48,6 +49,7 @@
 		DA4B0E4427F448B1006F534E = {
 			isa = PBXGroup;
 			children = (
+				DA777830281BD0B200C0AF4D /* README.md */,
 				DAB853B827FD6F5C00ABCB22 /* BLE_sense_demo.ino */,
 				DA4B0E4F27F448B1006F534E /* BLEConcurrency */,
 				DA4B0E4E27F448B1006F534E /* Products */,
@@ -97,6 +99,7 @@
 				DA4B0E4927F448B1006F534E /* Sources */,
 				DA4B0E4A27F448B1006F534E /* Frameworks */,
 				DA4B0E4B27F448B1006F534E /* Resources */,
+				DA77782F281BCBE400C0AF4D /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -151,6 +154,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DA77782F281BCBE400C0AF4D /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DA4B0E4927F448B1006F534E /* Sources */ = {

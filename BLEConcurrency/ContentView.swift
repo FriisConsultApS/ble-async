@@ -16,7 +16,7 @@ struct ContentView: View {
     @State var selectedPeripheralId: CBPeripheral.ID?
     var body: some View {
         NavigationView {
-            VStack {                
+            VStack {
                 List(selection: $selectedPeripheralId) {
                     ForEach(devices) { device in
                         NavigationLink {
@@ -25,9 +25,8 @@ struct ContentView: View {
                             Text("Device \(device.name ??  device.identifier.uuidString)")
                         }
                     }
-                    
                 }
-                
+
                 if isScanning {
                     ProgressView()
                 }
@@ -45,18 +44,16 @@ struct ContentView: View {
                         }
                     }
                 }
-                
             })
-            
             .task {
                 guard await store.isReady() else { return }
                 isScanning = true
-                
+
                 devices.removeAll()
-                
+
                 for await device in store.devices.filter({ $0.name != nil }) {
                     devices.append(device)
-                    
+
                 }
                 isScanning = false
             }

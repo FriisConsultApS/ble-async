@@ -11,36 +11,32 @@ extension Data {
     var string: String {
         String(data: self, encoding: .utf8) ?? hex
     }
-    
-    var hex: String { map{ String(format: "%02X", $0)}.joined(separator: ":")}
-    
+
+    var hex: String { map { String(format: "%02X", $0)}.joined(separator: ":")}
+
     var int16: Int16 {
         let uint = uint16
         return uint <= UInt16(Int16.max) ? Int16(uint) : Int16(uint - UInt16(Int16.max) - 1) + Int16.min
     }
-    
-    var uint16: UInt16 { withUnsafeBytes { $0.load(as: UInt16.self) } }
-    
 
+    var uint16: UInt16 { withUnsafeBytes { $0.load(as: UInt16.self) } }
 
     var int32: Int32 {
         let uint = uint32
         return uint <= UInt32(Int32.max) ? Int32(uint) : Int32(uint - UInt32(Int32.max) - 1) + Int32.min
     }
 
-    
     var uint32: UInt32 { withUnsafeBytes { $0.load(as: UInt32.self) }  }
-    
+
     var float: Float {Float(bitPattern: UInt32(bigEndian: withUnsafeBytes { $0.load(as: UInt32.self)}))}
 }
 
 extension UInt8 {
     var hex: String { String(format: "%02X", self)}
-    
-    var int8 : Int8 {
+
+    var int8: Int8 {
         return (self <= UInt8(Int8.max)) ? Int8(self) : Int8(self - UInt8(Int8.max) - 1) + Int8.min
     }
-
 }
 
 extension UInt16 {
@@ -55,7 +51,6 @@ extension UInt32 {
     }
 
     var hex: String { String(format: "%04X", self)}
-
 }
 
 extension String {
