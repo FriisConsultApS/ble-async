@@ -164,16 +164,14 @@ class FCNanoBLESense: NSObject, AsyncCBPeripheral {
         super.init()
         
         self.peripheral.delegate = self
-        
-        peripheral.discoverServices([Self.deviceInfoService, Self.opticalService, Self.environmentService, Self.motionService])
-        
+
         try await withCheckedThrowingContinuation { (continuation: InitContinuation) in
             self.initContinuation = continuation
+
+            peripheral.discoverServices([Self.deviceInfoService, Self.opticalService, Self.environmentService, Self.motionService])
         }
         debugLog.info("ℹ:\(#function) - done")
     }
-    
-    
 }
 
 extension FCNanoBLESense: CBPeripheralDelegate {
