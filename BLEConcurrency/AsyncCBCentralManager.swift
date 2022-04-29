@@ -20,17 +20,12 @@ class AsyncCBCentralManager<T: AsyncCBPeripheral>: NSObject, ObservableObject, C
     private let services: [CBUUID]?
 
     private var stateContinuation: CentralManagerStateContinuation?
-    private var stateHandler: (CBManagerState) -> Void = { _ in }
 
     private var devicesContinuation: AsyncStream<CBPeripheral>.Continuation?
 
     private(set) var peripherals: [CBPeripheral] = []
 
-    private var countDownSubscriber: AnyCancellable?
-    private var countDownFrom: Date = .now
-
     private var connectContinuation: ConnectPeripheralContinuation?
-    private var connectHandler: (T) -> Void = { _ in }
 
     @Published private(set) var connectionError = false
 
@@ -84,14 +79,13 @@ class AsyncCBCentralManager<T: AsyncCBPeripheral>: NSObject, ObservableObject, C
     /// stop scanning and "terminate" the devices async stream
     func stopScan() {
         devicesContinuation?.finish()
-        self.countDownSubscriber?.cancel()
     }
 
     /// Connect and return a connected device encapsulated in a async handler
     ///
     /// In case of an error this throws a AsyncCentalManagerError
     /// - Parameter peripheral: the peripheral to connect
-    /// - Returns: the customised device
+    /// - Returns: the customized device
     func connect(_ peripheral: CBPeripheral) async throws -> T {
         centralManger.connect(peripheral)
 

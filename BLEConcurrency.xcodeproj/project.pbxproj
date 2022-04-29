@@ -17,6 +17,7 @@
 		DA4B0E6727F6226C006F534E /* BatteryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4B0E6627F6226C006F534E /* BatteryMonitor.swift */; };
 		DAB853B727FD6DDA00ABCB22 /* FCNanoBLESense.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB853B627FD6DDA00ABCB22 /* FCNanoBLESense.swift */; };
 		DAB853BA27FD797300ABCB22 /* SenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB853B927FD797300ABCB22 /* SenseView.swift */; };
+		DAF82C34281BD8AA00238EB6 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DAF82C33281BD8AA00238EB6 /* Documentation.docc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		DAB853B627FD6DDA00ABCB22 /* FCNanoBLESense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCNanoBLESense.swift; sourceTree = "<group>"; };
 		DAB853B827FD6F5C00ABCB22 /* BLE_sense_demo.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = BLE_sense_demo.ino; sourceTree = "<group>"; };
 		DAB853B927FD797300ABCB22 /* SenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenseView.swift; sourceTree = "<group>"; };
+		DAF82C33281BD8AA00238EB6 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				DA4B0E6027F4DBFE006F534E /* AsyncCBPeripheral.swift */,
 				DAB853B627FD6DDA00ABCB22 /* FCNanoBLESense.swift */,
 				DA4B0E6627F6226C006F534E /* BatteryMonitor.swift */,
+				DAF82C33281BD8AA00238EB6 /* Documentation.docc */,
 			);
 			path = BLEConcurrency;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				DA4B0E6127F4DBFE006F534E /* AsyncCBPeripheral.swift in Sources */,
 				DAB853BA27FD797300ABCB22 /* SenseView.swift in Sources */,
 				DAB853B727FD6DDA00ABCB22 /* FCNanoBLESense.swift in Sources */,
+				DAF82C34281BD8AA00238EB6 /* Documentation.docc in Sources */,
 				DA4B0E5127F448B1006F534E /* BLEConcurrencyApp.swift in Sources */,
 				DA4B0E5F27F44BBF006F534E /* AsyncCBCentralManager.swift in Sources */,
 				DA4B0E6527F5E8B0006F534E /* Data extensions.swift in Sources */,

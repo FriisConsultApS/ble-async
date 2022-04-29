@@ -13,35 +13,28 @@ import CoreBluetooth
 /// The firmware is included in this project "BLE_sense_demo.ino" and can be flashed to Arduino nano BLE sense
 /// Using the Arduino IDE (version 2) check out the arduino.cc website
 class FCNanoBLESense: NSObject, AsyncCBPeripheral {
-    /// This is the Continuation "call back" that are used for the initialisations of an object
+    /// This is the Continuation "call back" that are used for the initializations of an object
     typealias InitContinuation = CheckedContinuation<Void, Error>
     typealias RGBvalues = (red: Double, green: Double, blue: Double)
+
+    /// Handle to the peripheral
     var peripheral: CBPeripheral
 
+    /// An non-optional name
     var name: String { peripheral.name ?? "unknown" }
+
+    /// the continuation, that is to be called when a temperature is send from the BLE device
+    private var temperatureContinuation: AsyncStream<Measurement<UnitTemperature>>.Continuation?
 
     /// streams the current measured temperature, using Measurement struct
     var temperature: AsyncStream<Measurement<UnitTemperature>> {
         AsyncStream(Measurement<UnitTemperature>.self) { continuation in
-            /// make sure that we have an characteristics that we can read from
-            guard let temperatureChar = temperatureChar else {
-                continuation.finish()
-                return
-            }
 
-            /// parse the value from the caller to the stream
-            temperatureHandler = { value in
-                continuation.yield(value)
-            }
-
-            /// close the stream
-            temperatureCancelHandler = {
-                continuation.finish()
-            }
+            temperatureContinuation = continuation
 
             /// Let's do some cleaning when we  stop the stream
             continuation.onTermination = { @Sendable _ in
-                self.peripheral.setNotifyValue(false, for: temperatureChar)
+                self.peripheral.setNotifyValue(false, for: self.temperatureChar)
             }
 
             /// here we start the stream, by subscribing to the temperature characteristic
@@ -49,48 +42,29 @@ class FCNanoBLESense: NSObject, AsyncCBPeripheral {
         }
     }
 
+    private var humidityContinuation: AsyncStream<Float>.Continuation?
+
     /// streams the current humidity in % eg 50.99 = 50.99% if used with .formatter(.percent) remember to dived by 100
     var humidity: AsyncStream<Float> {
         AsyncStream(Float.self) { continuation in
-            guard let humidityChar = humidityChar else {
-                continuation.finish()
-                return
-            }
-
-            humidityHandler = { value in
-                continuation.yield(value)
-            }
-
-            humidityCancelHandler = {
-                continuation.finish()
-            }
+            humidityContinuation = continuation
 
             continuation.onTermination = { @Sendable _ in
-                self.peripheral.setNotifyValue(false, for: humidityChar)
+                self.peripheral.setNotifyValue(false, for: self.humidityChar)
             }
 
             self.peripheral.setNotifyValue(true, for: humidityChar)
         }
     }
 
+    private var colorContinuation: AsyncStream<RGBvalues>.Continuation?
     /// stream the read color, using double RGB, Please note that the optical color reader on the
     var colorHex: AsyncStream<RGBvalues> {
         AsyncStream(RGBvalues.self) { continuation in
-            guard let colorChar = self.colorChar else {
-                continuation.finish()
-                return
-            }
-
-            colorHandler = { value in
-                continuation.yield(value)
-            }
-
-            colorCancelHandler = {
-                continuation.finish()
-            }
+           colorContinuation = continuation
 
             continuation.onTermination = { @Sendable _ in
-                self.peripheral.setNotifyValue(false, for: colorChar)
+                self.peripheral.setNotifyValue(false, for: self.colorChar)
             }
 
             self.peripheral.setNotifyValue(true, for: colorChar)
@@ -124,31 +98,20 @@ class FCNanoBLESense: NSObject, AsyncCBPeripheral {
     private let debugLog: Logger = .init(subsystem: Bundle.main.bundleIdentifier!, category: "BLESense")
 
     private var initContinuation: InitContinuation?
-    private var serialChar: CBCharacteristic?
+    private var serialChar: CBCharacteristic!
 
-    private var gestureChar: CBCharacteristic?
-    private var proximityChar: CBCharacteristic?
-    private var colorChar: CBCharacteristic?
+    private var gestureChar: CBCharacteristic!
+    private var proximityChar: CBCharacteristic!
+    private var colorChar: CBCharacteristic!
 
-    private var temperatureChar: CBCharacteristic?
-    private var humidityChar: CBCharacteristic?
+    private var temperatureChar: CBCharacteristic!
+    private var humidityChar: CBCharacteristic!
 
-    private var magneticChar: CBCharacteristic?
-    private var accelerationChar: CBCharacteristic?
-    private var gyroscopeChar: CBCharacteristic?
+    private var magneticChar: CBCharacteristic!
+    private var accelerationChar: CBCharacteristic!
+    private var gyroscopeChar: CBCharacteristic!
 
-    private var pressureChar: CBCharacteristic?
-
-    /// this is the closure used to parse a new value to the async stream
-    private var temperatureHandler: (Measurement<UnitTemperature>) -> Void = { _ in }
-    /// in case we want to shut the stream down, this is the call...
-    private var temperatureCancelHandler: () -> Void = { }
-
-    private var humidityHandler: (Float) -> Void = { _ in }
-    private var humidityCancelHandler: () -> Void = { }
-
-    private var colorHandler: (RGBvalues) -> Void = { _ in }
-    private var colorCancelHandler: () -> Void = { }
+    private var pressureChar: CBCharacteristic!
 
     private var pressureHandler: (Double) -> Void = { _ in }
     private var pressureCancelHandler: () -> Void = { }
@@ -279,36 +242,16 @@ extension FCNanoBLESense: CBPeripheralDelegate {
     ///   - characteristic: -
     ///   - error: -
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        guard let data = characteristic.value else {
-            switch characteristic.uuid {
-            case Self.temperatureChar:
-                temperatureCancelHandler()
-
-            case Self.humidityChar:
-                humidityCancelHandler()
-
-            case Self.colorChar:
-                colorCancelHandler()
-
-            case Self.pressureChar:
-                pressureCancelHandler()
-
-            default:
-                break
-            }
-            return
-        }
+        guard let data = characteristic.value else { return }
 
         switch characteristic.uuid {
         case Self.temperatureChar:
             let value = Data(data.reversed())
-            let temperature = Double(value.float)
-            temperatureHandler(Measurement<UnitTemperature>(value: temperature, unit: .celsius))
+            temperatureContinuation?.yield(.init(value: Double(value.float), unit: .celsius))
 
         case Self.humidityChar:
             let value = Data(data.reversed())
-            let humidity = value.float
-            humidityHandler(humidity)
+            humidityContinuation?.yield(value.float)
 
         case Self.colorChar:
             guard data.count == 3 else { return }
@@ -317,7 +260,7 @@ extension FCNanoBLESense: CBPeripheralDelegate {
             let blue = Double(data[2]) / 255
 
             debugLog.info("ℹ:\(#function) - \(data.hex) \(red),\(green), \(blue)")
-            colorHandler((red, green, blue))
+            colorContinuation?.yield((red, green, blue))
 
         case Self.pressureChar:
             let value = Data(data.reversed())
